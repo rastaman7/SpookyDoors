@@ -1,9 +1,10 @@
-import UIKit
+ import UIKit
 
 class settings: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var ChooseImage: UIButton!
+    @IBOutlet weak var ResetImage: UIButton!
     
     let file_name = "newloseimage.pdf"
     
@@ -28,7 +29,6 @@ class settings: UIViewController, UINavigationControllerDelegate, UIImagePickerC
             
             do {
                 
-                //try image.writeToFile( toFile: path_file_name, atomically: true )
                 try image.pngData()?.write(to: path_file_name, options: .atomic)
                 
             } catch {
@@ -40,11 +40,38 @@ class settings: UIViewController, UINavigationControllerDelegate, UIImagePickerC
         
     }
     
+    @IBAction func ResetImagePressed() {
+        if let dir = FileManager.default.urls( for: .documentDirectory, in: .userDomainMask ).first {
+            
+            let path_file_name = dir.appendingPathComponent( file_name )
+            
+            do {
+                let loseImage: UIImage = UIImage(named: "loseImage.png")!
+                try loseImage.pngData()?.write(to: path_file_name, options: .atomic)
+                
+            } catch {
+                //エラー処理
+            }
+        }
+        viewDidLoad()
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        //imageView.image = UIImage(named: "default.png")
+        let file_name = "newloseimage.pdf"
+        
+        if let dir = FileManager.default.urls( for: .documentDirectory, in: .userDomainMask ).first {
+            
+            let path_file_name = dir.appendingPathComponent( file_name )
+            
+            let imageData = try? Data(contentsOf: path_file_name)
+            let image = UIImage(data:imageData!)
+            imageView.image = image
+ 
+        }
     }
 
     
