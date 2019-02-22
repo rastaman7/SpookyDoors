@@ -23,23 +23,10 @@ class lose: UIViewController {
             
             let path_file_name = dir.appendingPathComponent( file_name )
             
-            //loseImage.image = loadImageFromPath(path: path_file_name)
-            
             let imageData = try? Data(contentsOf: path_file_name)
             let image = UIImage(data:imageData!)
             loseImage.image = image
             
-            /*
-            do {
-                
-                //let text = try FileManager.default.contentsOfDirectory(atPath: path_file_name)
-                let text = try UIImage(contentsOfFile: file_name)
-                loseImage.image = text
-                
-            } catch {
-                //エラー処理
-            }
- */
         }
     }
     
