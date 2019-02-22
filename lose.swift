@@ -3,6 +3,11 @@ import UIKit
 class lose: UIViewController {
 
     @IBOutlet weak var loseImage: UIImageView!
+    @IBOutlet weak var Back: UIButton!
+    @IBAction func BackPressed() {
+    self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+    }
+    
     
     func loadImageFromPath(path: String) -> UIImage? {
         let image = UIImage(contentsOfFile: path)
@@ -24,12 +29,22 @@ class lose: UIViewController {
             let path_file_name = dir.appendingPathComponent( file_name )
             
             let imageData = try? Data(contentsOf: path_file_name)
-            let image = UIImage(data:imageData!)
-            loseImage.image = image
+            if imageData != nil {
+                let image = UIImage(data:imageData!)
+                loseImage.image = image
+                print("here1!")
+            }else{
+                loseImage.image = UIImage(named: "loseImage.png")!
+                print("here2!")
+            }
             
         }
+        
     }
     
+    deinit {
+        print("lose being deinitialized")
+    }
 
     /*
     // MARK: - Navigation
