@@ -3,13 +3,21 @@ import AVFoundation
 
 class second: UIViewController {
 
-    var audioPlayer = AVAudioPlayer()
     @IBOutlet weak var chooseDoor: UILabel!
+    @IBOutlet weak var Back: UIButton!
+    @IBAction func BackPressed() {
+        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true
+            , completion: nil)
+    }
+  
     let DoorImage:UIImage = UIImage(named: "Door")!
     let DoorOpenImage:UIImage = UIImage(named: "DoorOpen")!
     
     let door_num = 6
     var rand_num = 0
+    
+    var audioPlayer = AVAudioPlayer()
     
     func winProcess(door:UIButton){
         door.setImage(DoorOpenImage, for: .normal)
@@ -98,6 +106,10 @@ class second: UIViewController {
         }
 
         // Do any additional setup after loading the view.
+    }
+    
+    deinit {
+        print("second being deinitialized")
     }
     
 
