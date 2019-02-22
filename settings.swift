@@ -5,8 +5,17 @@ class settings: UIViewController, UINavigationControllerDelegate, UIImagePickerC
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var ChooseImage: UIButton!
     @IBOutlet weak var ResetImage: UIButton!
+    @IBOutlet weak var Back: UIButton!
+    
+    @IBAction func BackPressed() {
+        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true
+            , completion: nil)
+    }
     
     let file_name = "newloseimage.pdf"
+    
+    
     
     @IBAction func ChooseImagePressed() {
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
@@ -33,6 +42,7 @@ class settings: UIViewController, UINavigationControllerDelegate, UIImagePickerC
                 
             } catch {
                 //エラー処理
+                print("error at FileManager")
             }
         }
         
@@ -51,6 +61,7 @@ class settings: UIViewController, UINavigationControllerDelegate, UIImagePickerC
                 
             } catch {
                 //エラー処理
+                print("error at reset")
             }
         }
         viewDidLoad()
@@ -63,17 +74,45 @@ class settings: UIViewController, UINavigationControllerDelegate, UIImagePickerC
         // Do any additional setup after loading the view.
         let file_name = "newloseimage.pdf"
         
+        if( FileManager.default.fileExists( atPath: "newloseimage.pdf" ) ) {
+            print("file exist")
+        } else {
+            print("file does not exist")
+        }
+        
         if let dir = FileManager.default.urls( for: .documentDirectory, in: .userDomainMask ).first {
             
             let path_file_name = dir.appendingPathComponent( file_name )
             
             let imageData = try? Data(contentsOf: path_file_name)
-            let image = UIImage(data:imageData!)
-            imageView.image = image
+            if imageData != nil {
+                let image = UIImage(data:imageData!)
+                imageView.image = image
+                print("here1!")
+            }else{
+                imageView.image = UIImage(named: "loseImage.png")!
+                print("here2!")
+            }
+            
+            
+            //wrong code!!!
+            //let image = UIImage(data:imageData!)
  
         }
+        
+      /*
+        if( FileManager.default.fileExists( atPath: "newloseimage.pdf" ) ) {
+            print("file exist2")
+        } else {
+            print("file does not exist2")
+        }
+ */
+        
     }
 
+    deinit {
+        print("settings being deinitialized")
+    }
     
     /*
     // MARK: - Navigation
