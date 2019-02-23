@@ -1,4 +1,4 @@
- import UIKit
+import UIKit
 
 class settings: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
@@ -6,6 +6,8 @@ class settings: UIViewController, UINavigationControllerDelegate, UIImagePickerC
     @IBOutlet weak var ChooseImage: UIButton!
     @IBOutlet weak var ResetImage: UIButton!
     @IBOutlet weak var Back: UIButton!
+    
+    var soundObj = sound()
     
     @IBAction func BackPressed() {
         self.navigationController?.popViewController(animated: true)
@@ -18,6 +20,7 @@ class settings: UIViewController, UINavigationControllerDelegate, UIImagePickerC
     
     
     @IBAction func ChooseImagePressed() {
+        soundObj.buttonSound()
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
             let pickerView = UIImagePickerController()
             pickerView.sourceType = .photoLibrary
@@ -51,6 +54,7 @@ class settings: UIViewController, UINavigationControllerDelegate, UIImagePickerC
     }
     
     @IBAction func ResetImagePressed() {
+        soundObj.buttonSound()
         if let dir = FileManager.default.urls( for: .documentDirectory, in: .userDomainMask ).first {
             
             let path_file_name = dir.appendingPathComponent( file_name )
@@ -93,20 +97,8 @@ class settings: UIViewController, UINavigationControllerDelegate, UIImagePickerC
                 imageView.image = UIImage(named: "loseImage.png")!
                 print("here2!")
             }
-            
-            
-            //wrong code!!!
-            //let image = UIImage(data:imageData!)
  
         }
-        
-      /*
-        if( FileManager.default.fileExists( atPath: "newloseimage.pdf" ) ) {
-            print("file exist2")
-        } else {
-            print("file does not exist2")
-        }
- */
         
     }
 
