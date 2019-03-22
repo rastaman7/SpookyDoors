@@ -28,6 +28,9 @@ class second: UIViewController {
     func loseProcess(door:UIButton){
         soundObj.doorSound()
         door.setImage(DoorOpenImage, for: .normal)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7){
+            self.soundObj.loseSound()
+        }
         chooseDoor.text="you lose"
         let storyboard: UIStoryboard = self.storyboard!
         let lose = storyboard.instantiateViewController(withIdentifier: "lose")
