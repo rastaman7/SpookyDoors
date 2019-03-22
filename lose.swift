@@ -37,9 +37,7 @@ class lose: UIViewController {
                 loseImage.image = UIImage(named: "loseImage.png")!
                 print("here2!")
             }
-            
         }
-        
     }
     
     deinit {
